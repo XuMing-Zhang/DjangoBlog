@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}登陆{% endblock %}
+{% block content %}
+    <div class="container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h3>登陆我的个人博客</h3>
+                    </div>
+                </div>
+                <form action="../login/" method="post">
+                    {% csrf_token %}
+                    <div class="panel-body align-left" >
+                        {{ login_form.as_p }}
+                    </div>
+
+                    <input type="submit" value="登陆" class="btn btn-success"><br/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

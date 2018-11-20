@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}我的博文{% endblock %}
+{% block content %}
+    <div class="container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h4>{{ username | default:'我' }}的博文</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" align="left">
+                        <p>用户名：{{ user | upper }}</p>
+                    </div>
+                    {% if username == 'zxm' %}{# 判断用户是否是管理员，如果是，就显示用户来信和博文类别，如果不是，就显示该用户的博文列表#}
+                        <div class="panel-body">
+                            <h4>用户来信</h4>
+                            <ul>
+                                {% for contact_l in contact_list %}
+                                    <li>
+                                        用户：{{ contact_l.name }}({{ contact_l.email }})在{{ contact_l.created }}来信，内容是：{{ contact_l.content }}|[<a
+                                            href="/contact_del/{{ contact_l.id }}/">删除</a>]
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <hr>
+                            <h4>博文列表</h4>
+                            <ul>
+                                {% for list in blog_list %}
+                                    <li>文章标题：{{ list }}|文章作者：{{ list.author_user }}|发布时间：{{ list.created }}|[<a
+                                            href="/blog_del/{{ list.id }}/">删除</a>|<a
+                                            href="/blog_edit/{{ list.id }}">编辑</a>]
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="panel-body">
+                            <h4>博文列表</h4>
+                            <ul>
+                                {% for list in blog_list %}
+                                    <li>文章标题：{{ list }}|文章作者：{{ list.author_user }}|发布时间：{{ list.created }}|[<a
+                                            href="/blog_del/{{ list.id }}/">删除</a>|<a
+                                            href="/blog_edit/{{ list.id }}">编辑</a>]
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

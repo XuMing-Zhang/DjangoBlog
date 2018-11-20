@@ -1,0 +1,61 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<div class="list-group">
+    <a href="/" class="list-group-item">文章分类-首页</a>
+    {% get_categories as gcs %}
+    {% for gc in gcs %}
+        <a href="/catagory/{{ gc.id }}" class="list-group-item">{{ gc.name }}</a>
+    {% endfor %}
+</div>
+
+<div class="list-group">
+<p class="list-group-item">最新文章</p>
+<div>
+    <br>
+</div>
+    {% recent_post_blog as rpbs %}
+    <ul>
+        {% for rpb in rpbs %}
+            <li>
+                <a href="{% url 'blog_get_detail' rpb.id %}">{{ rpb.title }}</a>
+            </li>
+            {% empty %}
+            暂无文章
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="list-group">
+<p class="list-group-item">最新评论</p>
+<div>
+    <br>
+</div>
+    {% recent_comment as rcs %}
+    <ul>
+        {% for rc in rcs %}
+            <li>
+
+                <a href="{% url 'blog_get_detail' rc.blog_id %}">{{ rc.name }}:{{ rc.content | truncatechars:20}}</a>
+            </li>
+            {% empty %}
+            暂无评论
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="list-group">
+<p class="list-group-item">文章归档</p>
+<div>
+    <br>
+</div>
+    {% archives as arcs %}
+    <ul>
+        {% for arc in arcs %}
+            <li>
+                <a href="/archives/{{ arc.year }}/{{ arc.month }}/">{{ arc.year }}年{{ arc.month }}月</a>
+            </li>
+            {% empty %}
+            暂无文章
+        {% endfor %}
+    </ul>
+</div>

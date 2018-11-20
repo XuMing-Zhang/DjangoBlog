@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}BLOG CLUB博客俱乐部{% endblock %}
+{% block content %}
+{#    message信息显示部分#}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{#    博客文章列表部分#}
+{% for blog in blog_pages %}
+    <div>
+        <div>
+            <a href="{% url 'blog_get_detail' blog.id %}"><h4>{{ blog.title }}</h4></a>
+        </div>
+        <div>
+            {{ blog.content | truncatechars:50 }}
+        </div>
+        <div>
+            <span style="color: #ff9900;">{{ blog.catagory.name }}</span>-
+            <span style="color: #4a86e8">{{ blog.author_user }}发布于</span>-
+            <span style="color: #6aa84e">{{ blog.created |date:"Y-m-d H:i" }}</span>
+            <hr>
+        </div>
+    </div>
+{% endfor %}
+    {#        博客文章列表页码部分#}
+<nav aria-label="Page navigation">
+<ul class="pagination">
+    {% if blog_pages.has_previous %}
+        <li>
+            <a href="?page={{ blog_pages.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    {% endif %}
+
+{% for blog_page in blog_pages.paginator.page_range %}
+    {% if blog_pages.number == blog_page %}
+        <li class="active"><a href="?page={{ blog_page }}">{{ blog_page }}</a></li>
+    {% else %}
+        <li><a href="?page={{ blog_page }}">{{ blog_page }}</a></li>
+    {% endif %}
+{% endfor %}
+
+{% if blog_pages.has_next %}
+    <li>
+        <a href="?page={{ blog_pages.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+{% endif %}
+</ul>
+</nav>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}注册成功{% endblock %}
+{% block content %}
+    <div class="container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h4>新用户注册成功！欢迎您的到来！</h4>
+                        <a href="/" class="btn btn-info">返回首页</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

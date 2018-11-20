@@ -1,0 +1,26 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div class="navbar-brand" align="center">
+                BLOG CLUB 博客俱乐部
+            </div>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">首页</a></li>
+            {% if username == 'zxm' %}
+                <li><a href="/post">写博客</a></li>
+                <li><a href="/admin/">后台管理</a></li>
+                <li><a href="/list/">管理员-{{ username }}</a></li>
+                <li><a href="/logout/">退出</a></li>
+            {% elif username %}
+                <li><a href="/post">写博客</a></li>
+                <li><a href="/list/">欢迎-{{ username }}</a></li>
+                <li><a href="/logout/">退出</a></li>
+            {% else %}
+                <li><a href="/contact/">联系管理员</a></li>
+                <li><a href="/accounts/register">注册</a></li>
+                <li><a href="/login/">登陆</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

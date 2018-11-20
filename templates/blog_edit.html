@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}修改博客{% endblock %}
+{% block content %}
+    <div class="container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>修改文章</h3>
+            </div>
+            <form action="/blog_edit/{{ nid }}/" name="edit_article" method="post">
+                {% csrf_token %}
+                <div class="panel-body">
+                        {{ mf.as_p }}
+                </div>
+                <div class="panel-footer">
+                    <input type="submit" value="修改" class="btn btn-success">
+                    <input type="reset" value="重置" class="btn btn-info">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

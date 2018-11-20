@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}新用户注册{% endblock %}
+{% block content %}
+    <div class="container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h3>新用户注册</h3>
+                    </div>
+                </div>
+                <form action="." method="post">
+                    {% csrf_token %}
+                        <div class="panel-body text-justify">{{ form.as_p }}</div>
+                    <input type="submit" value="注册" class="btn btn-success">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
